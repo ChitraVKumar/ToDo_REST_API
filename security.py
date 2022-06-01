@@ -8,12 +8,12 @@ users = [
 
 #mapping every user inside a dict with a name and id
 
-usernmae_mapping = {u.username: u for u in users}
+username_mapping = {u.username: u for u in users}
 userid_mapping = {u.id: u for u in users}
 
 
 def authenticate(username, password):
-    user = usernmae_mapping.get(username, None)
+    user = username_mapping.get(username, None)
     if user and safe_str_cmp(user.password, password): # compares string safely
         return user
 

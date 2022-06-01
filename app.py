@@ -1,3 +1,5 @@
+from ast import Delete
+from typing import ItemsView
 from flask import Flask, request
 from flask_restful import Resource, Api
 from flask_jwt import JWT, jwt_required
@@ -28,6 +30,24 @@ class ToDo(Resource):
         task = {'taskname': taskname, 'time': data['time'], 'description': data['description']}
         tasks.append(task)
         return task, 201
+
+    @jwt_required()
+    def delete(self, taskname):
+        global tasks
+        tasks = list(filter(lambda x: x['taskname'] != taskname, tasks))
+        return {'message': 'Task deleted'}
+
+    @jwt_required()
+    def put(self, taskname):
+        data = request.get_json()
+        task = next(filter(lambda x: x['taskname'] == taskname, tasks), None)
+        if task is None:
+            task = {'taskname': taskname, 'description': data['description'], 'time': data['time']}
+            tasks.append(task)
+        else:
+            task.update(data)
+
+        return task
 
 
 class ToDoList(Resource):
