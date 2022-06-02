@@ -1,5 +1,5 @@
 from datetime import datetime
-from flask import Flask, request
+from flask import Flask
 from flask_restful import Resource, Api, reqparse
 from flask_jwt import JWT, jwt_required
 import datetime
@@ -19,8 +19,7 @@ tasks = []
 class ToDo(Resource):
     
     parser = reqparse.RequestParser()
-    # parser.add_argument('time', type=lambda s: datetime.datetime.strptime(s, '%H:%M'), required= True, help='Required!')
-    parser.add_argument('time', type=float, required= True, help='Required!')
+    parser.add_argument('time', type=lambda s: str(datetime.datetime.strptime(s,"%d/%m/%Y %H:%M:%S")), required= True, help='Required!')
     parser.add_argument('description', type=str, required = True, help='Required')
 
 
