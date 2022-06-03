@@ -52,6 +52,10 @@ class UserRegister(Resource):
 
         data = UserRegister.parser.parse_args()
 
+        # avoiding registering duplicate usernames
+        if User.find_by_username(data['username']):
+            return {'message': 'A user with that name already exists'}, 400
+
         connection = sqlite3.connect('data.db')
         cursor = connection.cursor()
 

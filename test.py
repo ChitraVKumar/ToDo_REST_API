@@ -1,4 +1,3 @@
-from select import select
 import sqlite3
 
 connection = sqlite3.connect('data.db')
