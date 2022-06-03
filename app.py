@@ -6,6 +6,7 @@ import datetime
 
 
 from security import authenticate, identity
+from user import UserRegister
 
 app = Flask(__name__)
 app.secret_key = 'dnjnjlksnxkx214sl'
@@ -68,5 +69,6 @@ class ToDoList(Resource):
 
 api.add_resource(ToDo, '/ToDo/Today/<string:taskname>')
 api.add_resource(ToDoList, '/ToDo/Today')
+api.add_resource(UserRegister, '/register')
 app.run(port=5000, debug= True) # debugger for development mode
 
